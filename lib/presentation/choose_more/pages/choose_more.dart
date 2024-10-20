@@ -7,6 +7,7 @@ import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/configs/assets/app_images.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
 import 'package:spotify_clone/core/configs/theme/app_colors.dart';
+import 'package:spotify_clone/presentation/auth/pages/signup_or_signin.dart';
 import 'package:spotify_clone/presentation/choose_more/bloc/theme_cubit.dart';
 
 class ChooseMorePage extends StatelessWidget {
@@ -133,7 +134,7 @@ class ChooseMorePage extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const ChooseMorePage()));
+                            builder: (context) => const SignupOrSigninPage()));
                   },
                   title: 'Get Started',
                 )
