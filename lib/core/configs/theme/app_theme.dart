@@ -7,11 +7,23 @@ class AppTheme {
       scaffoldBackgroundColor: AppColors.lightBackground,
       brightness: Brightness.light,
       fontFamily: 'Satoshi',
+      inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: Colors.transparent,
+          contentPadding: const EdgeInsets.all(30),
+          hintStyle: const TextStyle(
+              color: Color(0xff383838), fontWeight: FontWeight.w500),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30),
+              borderSide: const BorderSide(color: Colors.white, width: 0.4)),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30),
+              borderSide: const BorderSide(color: Colors.black, width: 0.4))),
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.primary,
         textStyle: const TextStyle(
-          fontSize: 20,
+          fontSize: 16,
           fontWeight: FontWeight.bold,
         ),
         shape: RoundedRectangleBorder(
@@ -24,11 +36,23 @@ class AppTheme {
       scaffoldBackgroundColor: AppColors.darkBackground,
       brightness: Brightness.dark,
       fontFamily: 'Satoshi',
+      inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: Colors.transparent,
+          contentPadding: const EdgeInsets.all(30),
+          hintStyle: const TextStyle(
+              color: Color(0xffA7A7A7), fontWeight: FontWeight.w500),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30),
+              borderSide: const BorderSide(color: Colors.white, width: 0.4)),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30),
+              borderSide: const BorderSide(color: Colors.white, width: 0.4))),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,
           textStyle: const TextStyle(
-            fontSize: 20,
+            fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
           shape: RoundedRectangleBorder(
