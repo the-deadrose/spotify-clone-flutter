@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "671369834198",
+    "project_id": "expenditure-tracker-faa32",
+    "storage_bucket": "expenditure-tracker-faa32.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:671369834198:android:bf174bb1829cd03fa16377",
+        "android_client_info": {
+          "package_name": "com.example.spotify_clone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdqYTq99L6jks-aKSkLhw0PN7SVtyqhrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

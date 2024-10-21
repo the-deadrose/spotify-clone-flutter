@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotify_clone/common/widgets/appbar/app_bar.dart';
 import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
+import 'package:spotify_clone/presentation/auth/pages/signup.dart';
 
 class SigninPage extends StatelessWidget {
   const SigninPage({super.key});
@@ -27,8 +28,6 @@ class SigninPage extends StatelessWidget {
               const SizedBox(height: 20),
               _passwordField(context),
               const SizedBox(height: 20),
-              _recoveryPassword(context),
-              const SizedBox(height: 20),
               BasicAppButton(
                 title: 'Sign In',
                 onPressed: () {},
@@ -46,18 +45,6 @@ class SigninPage extends StatelessWidget {
         fontSize: 25,
       ),
       textAlign: TextAlign.center,
-    );
-  }
-
-  Widget _recoveryPassword(BuildContext context) {
-    return TextButton(
-      onPressed: () {},
-      child: const Text(
-        'Forgot password?',
-        style: TextStyle(
-          fontWeight: FontWeight.w500,
-        ),
-      ),
     );
   }
 
@@ -86,13 +73,18 @@ class SigninPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
-            'Do you have an account?',
+            'Not a member?',
             style: TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 14,
             ),
           ),
-          TextButton(onPressed: () {}, child: const Text('Sign in'))
+          TextButton(
+              onPressed: () {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => SignupPage()));
+              },
+              child: const Text('Register')),
         ],
       ),
     );
