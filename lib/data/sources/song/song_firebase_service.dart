@@ -18,8 +18,10 @@ class SongFirebaseServiceImpl implements SongFirebaseService {
           .limit(3)
           .get();
 
+      print('datatatattatattatatattaaaaaaaaa ${data.docs.first.get('title')}');
+
       for (var element in data.docs) {
-        var songModel = SongModel.fromMap(element.data());
+        var songModel = SongModel.fromJson(element.data());
         songs.add(
           songModel.toEntity(),
         );

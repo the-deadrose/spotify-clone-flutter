@@ -75,25 +75,30 @@ class _HomePageState extends State<HomePage>
 
   Widget _tabs() {
     return TabBar(
-        controller: _tabController,
-        isScrollable: true,
-        labelColor: context.isDarkMode ? Colors.white : Colors.black,
-        indicatorColor: AppColors.primary,
-        padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 16),
-        labelStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-        tabs: const [
-          Tab(
-            text: 'News',
-          ),
-          Tab(
-            text: 'Videos',
-          ),
-          Tab(
-            text: 'Artists',
-          ),
-          Tab(
-            text: 'Podcasts',
-          ),
-        ]);
+      dividerHeight: 0,
+      controller: _tabController,
+      isScrollable: true,
+      labelColor: context.isDarkMode ? Colors.white : Colors.black,
+      indicatorColor: AppColors.primary,
+      padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 16),
+      tabs: const [
+        Text(
+          'News',
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+        ),
+        Text(
+          'Videos',
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+        ),
+        Text(
+          'Artists',
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+        ),
+        Text(
+          'Podcasts',
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+        )
+      ],
+    );
   }
 }
