@@ -1,5 +1,3 @@
-import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotify_clone/common/widgets/appbar/app_bar.dart';
@@ -8,6 +6,7 @@ import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
 import 'package:spotify_clone/data/models/auth/create_user_req.dart';
 import 'package:spotify_clone/domain/usecases/auth/signup.dart';
 import 'package:spotify_clone/presentation/auth/pages/signin.dart';
+import 'package:spotify_clone/presentation/home/pages/home.dart';
 import 'package:spotify_clone/service_locator.dart';
 
 class SignupPage extends StatelessWidget {
@@ -20,8 +19,9 @@ class SignupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         bottomNavigationBar: _signUpText(context),
-        appBar: BasicAppBar(
+        appBar: BasicAppbar(
           title: SvgPicture.asset(AppVectors.logo, height: 40, width: 40),
         ),
         body: Padding(
@@ -40,17 +40,24 @@ class SignupPage extends StatelessWidget {
               BasicAppButton(
                 title: 'Register',
                 onPressed: () async {
-                  var result = await sl<SignupUseCase>().call(CreateUserReq(
-                      fullName: _fullNameController.text,
-                      email: _emailController.text,
-                      password: _passwordController.text));
+                  var result = await sl<SignupUseCase>().call(
+                      params: CreateUserReq(
+                          fullName: _fullNameController.text,
+                          email: _emailController.text,
+                          password: _passwordController.text));
 
                   result.fold((l) {
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(const SnackBar(content: Text('Error')));
+                    var snackbar = SnackBar(
+                      content: Text(l),
+                      behavior: SnackBarBehavior.floating,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackbar);
                   }, (r) {
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(const SnackBar(content: Text('Success')));
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomePage()),
+                        (route) => false);
                   });
                 },
               ),
@@ -115,10 +122,8 @@ class SignupPage extends StatelessWidget {
           ),
           TextButton(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const SigninPage()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SigninPage()));
               },
               child: const Text('Sign in'))
         ],
