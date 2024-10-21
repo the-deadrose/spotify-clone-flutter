@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:spotify_clone/domain/entities/song/song.dart';
 
 class SongModel {
-  final String? title;
-  final String? artist;
-  final num? duration;
-  final Timestamp? releaseDate;
+  String? title;
+  String? artist;
+  num? duration;
+  Timestamp? releaseDate;
 
   SongModel({
     required this.title,
@@ -14,13 +14,11 @@ class SongModel {
     required this.releaseDate,
   });
 
-  factory SongModel.fromMap(Map<String, dynamic> map) {
-    return SongModel(
-      title: map['title'],
-      artist: map['artist'],
-      duration: map['duration'],
-      releaseDate: map['releaseDate'],
-    );
+  SongModel.fromJson(Map<String, dynamic> data) {
+    title = data['title'];
+    artist = data['artist'];
+    duration = data['duration'];
+    releaseDate = data['releaseDate'];
   }
 }
 
