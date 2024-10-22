@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotify_clone/common/helper/is_dark_mode.dart';
-import 'package:spotify_clone/common/widgets/appbar/app_bar.dart';
 import 'package:spotify_clone/core/configs/assets/app_images.dart';
-import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
 import 'package:spotify_clone/core/configs/theme/app_colors.dart';
 import 'package:spotify_clone/presentation/home/widgets/news_songs.dart';
+import 'package:spotify_clone/presentation/home/widgets/play_list.dart';
+
+import '../../../common/widgets/appbar/app_bar.dart';
+import '../../../core/configs/assets/app_vectors.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,7 +31,19 @@ class _HomePageState extends State<HomePage>
     return Scaffold(
       appBar: BasicAppbar(
         hideBack: true,
-        title: SvgPicture.asset(AppVectors.logo, height: 40, width: 40),
+        action: IconButton(
+            onPressed: () {
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (BuildContext context) => const ProfilePage())
+              // );
+            },
+            icon: const Icon(Icons.person)),
+        title: SvgPicture.asset(
+          AppVectors.logo,
+          height: 40,
+          width: 40,
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -39,13 +53,17 @@ class _HomePageState extends State<HomePage>
             _tabs(),
             SizedBox(
               height: 260,
-              child: TabBarView(controller: _tabController, children: [
-                const NewsSongs(),
-                Container(),
-                Container(),
-                Container(),
-              ]),
-            )
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  const NewsSongs(),
+                  Container(),
+                  Container(),
+                  Container()
+                ],
+              ),
+            ),
+            const PlayList()
           ],
         ),
       ),
@@ -55,18 +73,20 @@ class _HomePageState extends State<HomePage>
   Widget _homeTopCard() {
     return Center(
       child: SizedBox(
-        height: 188,
+        height: 140,
         child: Stack(
           children: [
             Align(
-                alignment: Alignment.bottomCenter,
-                child: SvgPicture.asset(AppVectors.homeTopCard)),
+              alignment: Alignment.bottomCenter,
+              child: SvgPicture.asset(AppVectors.homeTopCard),
+            ),
             Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 40, right: 40),
-                  child: Image.asset(AppImages.homeArtist),
-                )),
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 60),
+                child: Image.asset(AppImages.homeArtist),
+              ),
+            )
           ],
         ),
       ),
@@ -75,7 +95,6 @@ class _HomePageState extends State<HomePage>
 
   Widget _tabs() {
     return TabBar(
-      dividerHeight: 0,
       controller: _tabController,
       isScrollable: true,
       labelColor: context.isDarkMode ? Colors.white : Colors.black,
