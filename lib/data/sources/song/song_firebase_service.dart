@@ -11,6 +11,7 @@ abstract class SongFirebaseService {
   Future<Either> getPlayList();
   Future<Either> addOrRemoveFavoriteSong(String songId);
   Future<bool> isFavoriteSong(String songId);
+  Future<Either> getFavoriteSongs();
 }
 
 class SongFirebaseServiceImpl implements SongFirebaseService {
@@ -24,21 +25,19 @@ class SongFirebaseServiceImpl implements SongFirebaseService {
           .limit(3)
           .get();
 
-      print('datatatattatattatatattaaaaaaaaa ${data.docs.first.get('title')}');
-
       for (var element in data.docs) {
         var songModel = SongModel.fromJson(element.data());
         bool isFavorite = await sl<IsFavoriteSongUseCase>()
             .call(params: element.reference.id);
         songModel.isFavorite = isFavorite;
         songModel.songId = element.reference.id;
-        songs.add(
-          songModel.toEntity(),
-        );
+        songs.add(songModel.toEntity());
       }
+
       return Right(songs);
     } catch (e) {
-      return const Left('Error fetching songs');
+      print(e);
+      return const Left('An error occurred, Please try again.');
     }
   }
 
@@ -126,6 +125,37 @@ class SongFirebaseServiceImpl implements SongFirebaseService {
       }
     } catch (e) {
       return false;
+    }
+  }
+
+  @override
+  Future<Either> getFavoriteSongs() async {
+    try {
+      final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+      final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+      var user = firebaseAuth.currentUser;
+      List<SongEntity> favoriteSongs = [];
+      String uId = user!.uid;
+      QuerySnapshot favoritesSnapshot = await firebaseFirestore
+          .collection('Users')
+          .doc(uId)
+          .collection('Favorites')
+          .get();
+
+      for (var element in favoritesSnapshot.docs) {
+        String songId = element['songId'];
+        var song =
+            await firebaseFirestore.collection('Songs').doc(songId).get();
+        SongModel songModel = SongModel.fromJson(song.data()!);
+        songModel.isFavorite = true;
+        songModel.songId = songId;
+        favoriteSongs.add(songModel.toEntity());
+      }
+
+      return Right(favoriteSongs);
+    } catch (e) {
+      print(e);
+      return const Left('An error occurred');
     }
   }
 }

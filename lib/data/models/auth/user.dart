@@ -12,7 +12,7 @@ class UserModel {
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {
-    fullName = json['fullName'];
+    fullName = json['name'];
     email = json['email'];
   }
 }
