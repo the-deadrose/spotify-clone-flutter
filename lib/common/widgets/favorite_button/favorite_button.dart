@@ -19,16 +19,17 @@ class FavoriteButton extends StatelessWidget {
           if (state is FavoriteButtonInitial) {
             return IconButton(
                 onPressed: () async {
-                  // await context.read<FavoriteButtonCubit>().favoriteButtonUpdated(
-                  //   songEntity.songId
-                  // );
-                  // if (function != null) {
-                  //   function!();
-                  // }
+                  await context
+                      .read<FavoriteButtonCubit>()
+                      .favoriteButtonUpdated(songEntity.songId);
+                  if (function != null) {
+                    function!();
+                  }
                 },
-                icon: const Icon(
-                  // songEntity.isFavorite ? Icons.favorite :
-                  Icons.favorite_outline_outlined,
+                icon: Icon(
+                  songEntity.isFavorite
+                      ? Icons.favorite
+                      : Icons.favorite_outline_outlined,
                   size: 25,
                   color: AppColors.darkGrey,
                 ));
@@ -37,9 +38,9 @@ class FavoriteButton extends StatelessWidget {
           if (state is FavoriteButtonUpdated) {
             return IconButton(
                 onPressed: () {
-                  // context
-                  //     .read<FavoriteButtonCubit>()
-                  //     .favoriteButtonUpdated(songEntity.songId);
+                  context
+                      .read<FavoriteButtonCubit>()
+                      .favoriteButtonUpdated(songEntity.songId);
                 },
                 icon: Icon(
                   state.isFavorite
