@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_clone/common/helper/is_dark_mode.dart';
-import 'package:spotify_clone/common/widgets/favorite_button/favorite_button.dart';
 import 'package:spotify_clone/core/configs/theme/app_colors.dart';
 import 'package:spotify_clone/presentation/home/bloc/play_list_cubit.dart';
+import '../../../common/widgets/favorite_button/favorite_button.dart';
 import '../../../domain/entities/song/song.dart';
+import '../../song_player/pages/song_player.dart';
 import '../bloc/play_list_state.dart';
 
 class PlayList extends StatelessWidget {
@@ -16,6 +17,7 @@ class PlayList extends StatelessWidget {
         create: (_) => PlayListCubit()..getPlayList(),
         child: BlocBuilder<PlayListCubit, PlayListState>(
           builder: (context, state) {
+            context.read<PlayListCubit>().getPlayList();
             if (state is PlayListLoading) {
               return Container(
                 alignment: Alignment.center,
@@ -65,15 +67,12 @@ class PlayList extends StatelessWidget {
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //    builder: (BuildContext context)
-              //   => SongPlayerPage(
-              //     songEntity: songs[index],
-              //   )
-              // )
-              // );
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => SongPlayerPage(
+                            song: songs[index],
+                          )));
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,7 +109,7 @@ class PlayList extends StatelessWidget {
                           height: 5,
                         ),
                         Text(
-                          songs[index].artist.split(',').first,
+                          songs[index].artist,
                           style: const TextStyle(
                               fontWeight: FontWeight.w400, fontSize: 11),
                         ),
